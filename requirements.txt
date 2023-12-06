@@ -1,4 +1,2 @@
-pytorch
-numpy
-pillow
+# In addition to .../KatUI/katzuki/requirements.txt, we need:
 imageio[ffmpeg]
