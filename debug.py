@@ -12,7 +12,7 @@ from backend.nodes.builtin import BaseNode
 
 class DebugSendImageToNeRFPanel(BaseNode):
 
-    @KatachiNode(hidden=True)
+    @KatzukiNode(hidden=True)
     def __init__(self) -> None:
         pass
 
@@ -29,7 +29,7 @@ class DebugSendImageToNeRFPanel(BaseNode):
 
 class DebugSendError(BaseNode):
 
-    @KatachiNode(hidden=True)
+    @KatzukiNode(hidden=True)
     def __init__(self) -> None:
         pass
 
@@ -41,7 +41,7 @@ class DebugSendError(BaseNode):
 
 class DebugVideoStreamer(BaseNode):
 
-    @KatachiNode(hidden=False)
+    @KatzukiNode(hidden=False)
     def __init__(self) -> None:
         pass
 
