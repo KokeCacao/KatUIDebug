@@ -6,7 +6,7 @@ import math
 import numpy as np
 from torch import Tensor
 from PIL import Image
-from backend.loader.decorator import KatachiNode
+from backend.loader.decorator import KatzukiNode
 from backend.nodes.builtin import BaseNode
 
 
