@@ -1,10 +1,11 @@
-import requests
 import base64
 import io
 import imageio
 import time
 import math
 import numpy as np
+import urllib.request
+import urllib.error
 
 from typing import Any, Dict, Tuple, TypedDict, List
 from torch import Tensor
@@ -71,10 +72,11 @@ class DebugInfiniteLoop(BaseNode):
         # get some nice gif image for us to animate
         def get_gif(url: str = "https://upload.wikimedia.org/wikipedia/commons/0/07/The_Horse_in_Motion-anim.gif"):
             frames: List[str] = []
-            response = requests.get(url)
-            if response.status_code == 200:
+
+            try:
+                req = urllib.request.Request(url, data=None, headers={'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36'})
                 # if fetch from web success, convert frames to a list of base64 encoded image
-                img = Image.open(io.BytesIO(response.content))
+                img = Image.open(urllib.request.urlopen(req))
                 i = 0
                 while True:
                     frame = img.copy()
@@ -86,7 +88,7 @@ class DebugInfiniteLoop(BaseNode):
                         img.seek(img.tell() + 1)
                     except EOFError:
                         break
-            else:
+            except urllib.error.HTTPError as e:
                 # this will make the progress bar to red and send an error message
                 # indicate there is an error executing this node.
                 self.set_output("error", f"Failed to get gif from {url}")
@@ -156,11 +158,15 @@ class DebugInfiniteLoop(BaseNode):
             self.send_update() # the above update will not send to frontend until you call this function
             time.sleep(1)
 
+        # You can also detect which output is required by the user
+        # This can save same GPU memory when user don't need to load specific models
+        output_name_is_connected = "output_name" in self._connected_outputs
+
         # If you want your output to be named, write a "ReturnDict" like above
         # and return a filled dict like below.
         return self.ReturnDict(
             output_name=snake_case_variable,
-            another_output=f"I'm another output, and we looped {progress} times",
+            another_output=f"I'm another output, and we looped {progress} times. And {'output_name is connected' if output_name_is_connected else 'output_name is not connected'}",
         )
         # If you have only single output, then you can do the following:
         # but please wrap it in "ReturnDict" if your single output is a Dict
