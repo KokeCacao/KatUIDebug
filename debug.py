@@ -202,6 +202,33 @@ class DebugSendError(BaseNode):
         return None
 
 
+class DebugDevice(BaseNode):
+
+    @KatzukiNode()
+    def __init__(self) -> None:
+        pass
+
+    def execute(self, tensor: Any) -> str:
+        return str(tensor.device)
+
+class DebugDir(BaseNode):
+    
+    @KatzukiNode()
+    def __init__(self) -> None:
+        pass
+
+    def execute(self, obj: Any) -> str:
+        return str(dir(obj))
+
+class DebugAccessField(BaseNode):
+    
+    @KatzukiNode()
+    def __init__(self) -> None:
+        pass
+
+    def execute(self, obj: Any, field: str) -> Any:
+        return getattr(obj, field)
+
 class DebugVideoStreamer(BaseNode):
 
     @KatzukiNode(hidden=False)
