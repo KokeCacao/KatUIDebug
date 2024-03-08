@@ -189,6 +189,17 @@ class DebugSendImageToNeRFPanel(BaseNode):
         self.send_update()
         return None
 
+
+class DebugCustomHttpRequest(BaseNode):
+
+    @KatzukiNode(hidden=False)
+    def __init__(self) -> None:
+        pass
+
+    def execute(self) -> None:
+        return None
+
+
 class DebugCrash(BaseNode):
 
     @KatzukiNode(hidden=True)
@@ -197,7 +208,8 @@ class DebugCrash(BaseNode):
 
     def execute(self) -> None:
         raise Exception("This is a test exception.")
-    
+
+
 class DebugSendError(BaseNode):
 
     @KatzukiNode(hidden=True)
@@ -219,8 +231,9 @@ class DebugDevice(BaseNode):
     def execute(self, tensor: Any) -> str:
         return str(tensor.device)
 
+
 class DebugDir(BaseNode):
-    
+
     @KatzukiNode()
     def __init__(self) -> None:
         pass
@@ -228,14 +241,16 @@ class DebugDir(BaseNode):
     def execute(self, obj: Any) -> str:
         return str(dir(obj))
 
+
 class DebugAccessField(BaseNode):
-    
+
     @KatzukiNode()
     def __init__(self) -> None:
         pass
 
     def execute(self, obj: Any, field: str) -> Any:
         return getattr(obj, field)
+
 
 class DebugVideoStreamer(BaseNode):
 
