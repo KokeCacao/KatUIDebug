@@ -189,7 +189,15 @@ class DebugSendImageToNeRFPanel(BaseNode):
         self.send_update()
         return None
 
+class DebugCrash(BaseNode):
 
+    @KatzukiNode(hidden=True)
+    def __init__(self) -> None:
+        pass
+
+    def execute(self) -> None:
+        raise Exception("This is a test exception.")
+    
 class DebugSendError(BaseNode):
 
     @KatzukiNode(hidden=True)
