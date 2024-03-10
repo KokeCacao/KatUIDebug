@@ -198,7 +198,7 @@ class DebugSendImageToNeRFPanel(BaseNode):
 
 class DebugCustomHttpRequest(BaseNode):
 
-    @KatzukiNode(hidden=False)
+    @KatzukiNode(hidden=False, inoperable=True)
     def __init__(self) -> None:
         pass
 
