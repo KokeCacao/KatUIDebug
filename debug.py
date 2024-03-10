@@ -49,8 +49,14 @@ class DebugInfiniteLoop(BaseNode):
         author="ProudlyPut YourNameHere",
         author_link="https://proundly.put.your.website.here",
         node_description="Oh well, I override the docstring above.",
-        input_description={},
-        output_description={},
+        input_description={
+            "snake_case_variable": "This is a description for snake_case_variable",
+            "and_they_must_be_fully_typed": "This is a description for and_they_must_be_fully_typed",
+        },
+        output_description={
+            "output_name": "This is a description for output_name",
+            "another_output": "This is a description for another_output",
+        },
     )
     def __init__(self) -> None:
         pass

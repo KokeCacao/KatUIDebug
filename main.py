@@ -5,8 +5,6 @@ from backend import variable
 from backend.app import app
 from backend.utils import SafeJSONResponse
 
-print("Loading nodes from \"{}\"".format(__file__))
-
 
 @app.get('/ping')
 async def ping(request: Request):
