@@ -19,10 +19,10 @@ export function DebugCustomHttpRequest(node: NodeProps) {
         children: (
           <Button
             onClick={() => {
-              fetchWithCredentials(
-                HTTP_URL + '/ping',
-                notificationAPI,
-                (response) => {
+              fetchWithCredentials({
+                url: HTTP_URL + '/ping',
+                notificationAPI: notificationAPI,
+                onSuccess: (response) => {
                   response.json().then((data) => {
                     notificationAPI.success({
                       message: 'Success',
@@ -32,8 +32,8 @@ export function DebugCustomHttpRequest(node: NodeProps) {
                     });
                   });
                 },
-                () => {},
-              );
+                onFailed: () => {},
+              });
             }}
           >
             Ping
