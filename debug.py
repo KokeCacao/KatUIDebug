@@ -181,7 +181,7 @@ class DebugInfiniteLoop(BaseNode):
 
 class DebugSendImageToNeRFPanel(BaseNode):
 
-    @KatzukiNode(hidden=True)
+    @KatzukiNode()
     def __init__(self) -> None:
         pass
 
@@ -198,7 +198,7 @@ class DebugSendImageToNeRFPanel(BaseNode):
 
 class DebugCustomHttpRequest(BaseNode):
 
-    @KatzukiNode(hidden=False, inoperable=True)
+    @KatzukiNode(inoperable=True)
     def __init__(self) -> None:
         pass
 
@@ -208,7 +208,7 @@ class DebugCustomHttpRequest(BaseNode):
 
 class DebugCrash(BaseNode):
 
-    @KatzukiNode(hidden=True)
+    @KatzukiNode()
     def __init__(self) -> None:
         pass
 
@@ -218,7 +218,7 @@ class DebugCrash(BaseNode):
 
 class DebugSendError(BaseNode):
 
-    @KatzukiNode(hidden=True)
+    @KatzukiNode()
     def __init__(self) -> None:
         pass
 
@@ -260,7 +260,7 @@ class DebugAccessField(BaseNode):
 
 class DebugVideoStreamer(BaseNode):
 
-    @KatzukiNode(hidden=False)
+    @KatzukiNode()
     def __init__(self) -> None:
         pass
 
@@ -285,3 +285,51 @@ class DebugVideoStreamer(BaseNode):
             time.sleep(max(1.0 / fps - (time.time() - start_time), 0))
 
         return None
+
+
+class DebugWithStatement(BaseNode):
+
+    @KatzukiNode()
+    def __init__(self) -> None:
+        pass
+
+    class ReturnDict(TypedDict):
+        __with__: Any
+        __output__: Any
+
+    def execute(self, __with__: Any, __output__: Any) -> ReturnDict:
+        return self.ReturnDict(__with__=__with__, __output__=__output__)
+
+
+class ExampleWithObject(BaseNode):
+
+    @KatzukiNode()
+    def __init__(self) -> None:
+        pass
+
+    class WithObject:
+
+        def __init__(self):
+            self.value = 42
+
+        def __enter__(self):
+            print("Entering with statement")
+            return self
+
+        def __exit__(self, exc_type, exc_value, traceback) -> None:
+            print("Exiting with statement")
+            return None
+
+    def execute(self) -> WithObject:
+        return self.WithObject()
+
+
+class Print(BaseNode):
+
+    @KatzukiNode()
+    def __init__(self) -> None:
+        pass
+
+    def execute(self, input: Any) -> str:
+        print(input)
+        return str(input)
