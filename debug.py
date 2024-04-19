@@ -287,27 +287,13 @@ class DebugVideoStreamer(BaseNode):
         return None
 
 
-class DebugWithStatement(BaseNode):
+class ExampleWithContext(BaseNode):
 
     @KatzukiNode()
     def __init__(self) -> None:
         pass
 
-    class ReturnDict(TypedDict):
-        __with__: Any
-        __output__: Any
-
-    def execute(self, __with__: Any, __output__: Any) -> ReturnDict:
-        return self.ReturnDict(__with__=__with__, __output__=__output__)
-
-
-class ExampleWithObject(BaseNode):
-
-    @KatzukiNode()
-    def __init__(self) -> None:
-        pass
-
-    class WithObject:
+    class WithContext:
 
         def __init__(self):
             self.value = 42
@@ -320,8 +306,8 @@ class ExampleWithObject(BaseNode):
             print("Exiting with statement")
             return None
 
-    def execute(self) -> WithObject:
-        return self.WithObject()
+    def execute(self) -> WithContext:
+        return self.WithContext()
 
 
 class Print(BaseNode):
