@@ -110,7 +110,10 @@ class DebugInfiniteLoop(BaseNode):
             # and it will check if user clicked any user defined signal above
             # if so, signal will be set to corresponding text.
             # please put this function in your loop, otherwise you can't stop your loop.
-            signal = self.check_execution_state_change()
+            signal = self.check_execution_state_change(clear_signal_event=lambda signal: signal == "hey! stop looping and give me a value~" # since we handled "hey! stop looping and give me a value~" signal
+                                                       or signal == "please change direction" # since we handled "please change direction" signal
+                                                       or True # since we handled everything else
+                                                      )
             if signal is None:
                 # that means user didn't click any custom button
                 pass
