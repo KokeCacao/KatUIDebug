@@ -6,7 +6,7 @@ import { NodeDefaultCard } from '../../frontend/components/NodeDefaultCard';
 import { HTTP_URL } from '../../frontend/const';
 import { GraphContext } from '../../frontend/hooks/graphs';
 import { NotificationContext } from '../../frontend/hooks/notification';
-import { fetchWithCredentials } from '../../frontend/requests';
+import { fetchWithCredentials, responseToJsonWithNaNHandling } from '../../frontend/requests';
 
 export function DebugCustomHttpRequest(node: NodeProps) {
   const { graph } = useContext(GraphContext);
@@ -23,7 +23,7 @@ export function DebugCustomHttpRequest(node: NodeProps) {
                 url: HTTP_URL + '/ping',
                 notificationAPI: notificationAPI,
                 onSuccess: (response) => {
-                  response.json().then((data) => {
+                  responseToJsonWithNaNHandling(response).then((data) => {
                     notificationAPI.success({
                       message: 'Success',
                       description: `Fetched ${HTTP_URL}/ping: ${JSON.stringify(
